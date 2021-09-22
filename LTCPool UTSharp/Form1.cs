@@ -24,11 +24,18 @@ namespace LTCPool_UTSharp
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
-        {
-            SettingsWindow.Show();
-            
+        {   
 
         }
 
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsWindow.Show();
+        }
+
+        private void settingsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            SettingsWindow.Show();
+        }
     }
 }

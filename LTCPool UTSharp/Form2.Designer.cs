@@ -39,6 +39,8 @@ namespace LTCPool_UTSharp
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.updateValue = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.hashScales = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // saveButton
@@ -85,16 +87,18 @@ namespace LTCPool_UTSharp
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F);
             this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "€",
             "$",
-            "£"});
-            this.comboBox1.Location = new System.Drawing.Point(189, 62);
+            "£",
+            "Ł"});
+            this.comboBox1.Location = new System.Drawing.Point(193, 62);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(593, 29);
+            this.comboBox1.Size = new System.Drawing.Size(589, 29);
             this.comboBox1.TabIndex = 7;
             // 
             // label2
@@ -125,7 +129,7 @@ namespace LTCPool_UTSharp
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(13, 112);
+            this.label3.Location = new System.Drawing.Point(13, 107);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(327, 31);
@@ -136,11 +140,39 @@ namespace LTCPool_UTSharp
             // 
             this.updateValue.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.updateValue.Location = new System.Drawing.Point(340, 117);
+            this.updateValue.Location = new System.Drawing.Point(340, 112);
             this.updateValue.Margin = new System.Windows.Forms.Padding(4);
             this.updateValue.Name = "updateValue";
             this.updateValue.Size = new System.Drawing.Size(442, 28);
             this.updateValue.TabIndex = 4;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(13, 164);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(207, 31);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Measuring Scale:";
+            // 
+            // hashScales
+            // 
+            this.hashScales.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.hashScales.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F);
+            this.hashScales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.hashScales.FormattingEnabled = true;
+            this.hashScales.Items.AddRange(new object[] {
+            "H",
+            "KH",
+            "MH",
+            "GH",
+            "TH"});
+            this.hashScales.Location = new System.Drawing.Point(221, 168);
+            this.hashScales.Name = "hashScales";
+            this.hashScales.Size = new System.Drawing.Size(561, 29);
+            this.hashScales.TabIndex = 7;
             // 
             // Form2
             // 
@@ -148,9 +180,11 @@ namespace LTCPool_UTSharp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(853, 554);
             this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.hashScales);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -177,5 +211,7 @@ namespace LTCPool_UTSharp
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox updateValue;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox hashScales;
     }
 }
