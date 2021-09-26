@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 using System.Numerics;
 
@@ -6,58 +7,58 @@ namespace LTCPool_UTSharp
 {
     public class Data
     {
-        public User user;
-        public JObject workers;
-        public JObject[] recent_payouts;
-        public Pool pool;
-        public Network network;
-        public Market market;
+        [JsonProperty] public readonly User user;
+        [JsonProperty] public readonly JObject workers;
+        [JsonProperty] public readonly JObject[] recent_payouts;
+        [JsonProperty] public readonly Pool pool;
+        [JsonProperty] public readonly Network network;
+        [JsonProperty] public readonly Market market;
 
-        public struct User 
+        public readonly struct User 
         {
-            public ulong hash_rate;
-            public double expected_24h_rewards;
-            public double total_rewards;
-            public double paid_rewards;
-            public double unpaid_rewards;
-            public double past_24h_rewards;
-            public ulong total_work;
-            public ulong blocks_found;
+            [JsonProperty] public readonly ulong hash_rate;
+            [JsonProperty] public readonly double expected_24h_rewards;
+            [JsonProperty] public readonly double total_rewards;
+            [JsonProperty] public readonly double paid_rewards;
+            [JsonProperty] public readonly double unpaid_rewards;
+            [JsonProperty] public readonly double past_24h_rewards;
+            [JsonProperty] public readonly ulong total_work;
+            [JsonProperty] public readonly ulong blocks_found;
         }
 
-        public struct Pool
+        public readonly struct Pool
         {
-            public ulong hash_rate;
-            public ulong active_users;
-            public ulong active_workers;
-            public BigInteger total_work;
-            public double pps_ratio;
-            public double pps_rate;
+            [JsonProperty] public readonly ulong hash_rate;
+            [JsonProperty] public readonly ulong active_users;
+            [JsonProperty] public readonly ulong active_workers;
+            [JsonProperty] public readonly BigInteger total_work;
+            [JsonProperty] public readonly double pps_ratio;
+            [JsonProperty] public readonly double pps_rate;
         }
 
-        public struct Network
+        public readonly struct Network
         {
-            public ulong hash_rate;
-            public ulong block_number;
-            public ulong time_per_block;
-            public double difficulty;
-            public double next_difficulty;
-            public ulong retarget_time;
+            [JsonProperty] public readonly ulong hash_rate;
+            [JsonProperty] public readonly ulong block_number;
+            [JsonProperty] public readonly ulong time_per_block;
+            [JsonProperty] public readonly double difficulty;
+            [JsonProperty] public readonly double next_difficulty;
+            [JsonProperty] public readonly ulong retarget_time;
 
         }
 
-        public struct Market
+        public readonly struct Market
         {
-            public double ltc_btc;
-            public double ltc_usd;
-            public double ltc_cad;
-            public double ltc_eur;
-            public double ltc_gbp;
-            public double ltc_rub;
-            public double ltc_cny;
-            public double ltc_aud;
-            public double ltc_zar;
-            public double btc_usd;
+            [JsonProperty] public readonly double ltc_btc;
+            [JsonProperty] public readonly double ltc_usd;
+            [JsonProperty] public readonly double ltc_cad;
+            [JsonProperty] public readonly double ltc_eur;
+            [JsonProperty] public readonly double ltc_gbp;
+            [JsonProperty] public readonly double ltc_rub;
+            [JsonProperty] public readonly double ltc_cny;
+            [JsonProperty] public readonly double ltc_aud;
+            [JsonProperty] public readonly double ltc_zar;
+            [JsonProperty] public readonly double btc_usd;
         }
     }
 }

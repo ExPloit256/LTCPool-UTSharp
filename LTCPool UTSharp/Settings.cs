@@ -7,9 +7,9 @@ namespace LTCPool_UTSharp
 {
     public class Settings
     {
-        public readonly string apiKey;
-        public readonly string currency;
-        public readonly string hashScale;
+        [JsonProperty] public readonly string apiKey;
+        [JsonProperty] public readonly string currency;
+        [JsonProperty] public readonly string hashScale;
 
         private Settings() { }
 
