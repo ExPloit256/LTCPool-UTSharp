@@ -79,24 +79,26 @@ namespace LTCPool_UTSharp
 
         public bool fetchApiData(string apiKey)
         {
-            if ((!string.IsNullOrWhiteSpace(apiKey)) && apiKey.Length == 32)
+            if(!string.IsNullOrWhiteSpace(apiKey))
             {
-                WebClient client = new WebClient();
-                var apiDataChunk = client.DownloadString(baseUrl + apiKey);
-                apiData = JsonConvert.DeserializeObject<Data>(apiDataChunk);
-                return true;
+                if(apiKey.Length == 32)
+                {
+                    WebClient client = new WebClient();
+                    var apiDataChunk = client.DownloadString(baseUrl + apiKey);
+                    apiData = JsonConvert.DeserializeObject<Data>(apiDataChunk);
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("You must insert a valid API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
             }
-            else if (!string.IsNullOrWhiteSpace(apiKey))
+            else
             {
                 MessageBox.Show("You must insert an API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
-            else if (apiKey.Length == 32)
-            {
-                MessageBox.Show("You must insert a valid API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-            return false;
         }
 
         public string getTotRevenue(string currency)
