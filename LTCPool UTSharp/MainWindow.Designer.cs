@@ -167,7 +167,7 @@ namespace LTCPool_UTSharp
             // importSettingsToolStripMenuItem
             // 
             this.importSettingsToolStripMenuItem.Name = "importSettingsToolStripMenuItem";
-            this.importSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importSettingsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.importSettingsToolStripMenuItem.Text = "Import Settings";
             this.importSettingsToolStripMenuItem.Click += new System.EventHandler(this.importSettingsToolStripMenuItem_Click);
             // 
@@ -211,7 +211,7 @@ namespace LTCPool_UTSharp
             // 
             // settingsFDialog
             // 
-            this.settingsFDialog.Filter = "Text Files|*.txt";
+            this.settingsFDialog.Filter = "JSON Files|*.json";
             this.settingsFDialog.Title = "Import Settings";
             this.settingsFDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.settingsFDialog_FileOk);
             // 
