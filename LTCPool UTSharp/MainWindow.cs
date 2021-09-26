@@ -48,7 +48,17 @@ namespace LTCPool_UTSharp
         {
             Settings.TryFromFile(defaultConfigPath, out settings);
 
+            UpdateValues();
+        }
+
+        void UpdateValues()
+        {
+            //Fetch new API data
             Api.TryFetchApiData(settings.apiKey, out apiData);
+
+            //Update Converter
+            LtcConverter.Update(apiData.market);
+
             totWorkLbl.Text = getTotWork();
         }
 
