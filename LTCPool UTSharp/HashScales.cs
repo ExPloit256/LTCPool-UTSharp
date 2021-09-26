@@ -1,6 +1,6 @@
 ﻿namespace LTCPool_UTSharp
 {
-    public enum HashRates : ulong
+    public enum HashScales : ulong
     {
         H = 1,
         KH = 1_000,
