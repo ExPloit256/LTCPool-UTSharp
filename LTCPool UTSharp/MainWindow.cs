@@ -50,7 +50,8 @@ namespace LTCPool_UTSharp
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            settings = Functions.parseConfigFile(defaultConfigPath);
+            Settings.TryFromFile(defaultConfigPath, out settings);
+
             Functions.fetchApiData(settings.apiKey);
             totWorkLbl.Text = Functions.getTotWork();
         }
@@ -62,20 +63,6 @@ namespace LTCPool_UTSharp
         const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
         
         public Data apiData;
-
-        public static Settings parseConfigFile(string path)
-        {
-            if(File.Exists(path))
-            {
-                var fileData = File.ReadAllText(path);
-                var settings = JsonConvert.DeserializeObject<Settings>(fileData);
-                return settings;
-            }
-            else
-            {
-                return null;
-            }
-        }
 
         public bool fetchApiData(string apiKey)
         {
