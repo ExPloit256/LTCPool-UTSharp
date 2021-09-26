@@ -67,7 +67,8 @@ namespace LTCPool_UTSharp
     {
         // Global Declarations
         const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
-        dynamic data;
+        
+        public Data apiData;
 
         public static Settings parseConfigFile(string path)
         {
@@ -89,7 +90,7 @@ namespace LTCPool_UTSharp
             {
                 WebClient client = new WebClient();
                 var apiDataChunk = client.DownloadString(baseUrl + apiKey);
-                data = JsonConvert.DeserializeObject(apiDataChunk);
+                apiData = JsonConvert.DeserializeObject<Data>(apiDataChunk);
                 return true;
             }
             else if (!string.IsNullOrWhiteSpace(apiKey))
@@ -109,27 +110,27 @@ namespace LTCPool_UTSharp
         {
             if (currency == "€")
             {
-                float total = data.user.total_rewards * data.market.ltc_eur;
+                var total = apiData.user.total_rewards * apiData.market.ltc_eur;
                 return $"{total:n2}€";
             }
             else if (currency == "$")
             {
-                float total = data.user.total_rewards * data.market.ltc_usd;
+                var total = apiData.user.total_rewards * apiData.market.ltc_usd;
                 return $"{total:n2}$";
             }
             else if (currency == "£")
             {
-                float total = data.user.total_rewards * data.market.ltc_gbp;
+                var total = apiData.user.total_rewards * apiData.market.ltc_gbp;
                 return $"{total:n2}£";
             }
             else if (currency == "Ł")
             {
-                float total = data.user.total_rewards;
+                var total = apiData.user.total_rewards;
                 return $"{total:n2}Ł";
             }
             else if (currency == "₿")
             {
-                float total = data.user.total_rewards;
+                var total = apiData.user.total_rewards;
                 return $"{total:n2}₿";
             }
             return null;
@@ -139,30 +140,30 @@ namespace LTCPool_UTSharp
         {
             if (selectedHashingScale == "H")
             {
-                string hashRate = data.user.hash_rate + " H/s";
+                string hashRate = apiData.user.hash_rate + " H/s";
                 return hashRate;
             }
             if (selectedHashingScale == "KH")
             {
-                int numRate = Convert.ToInt32(data.user.hash_rate / 100);
+                int numRate = Convert.ToInt32(apiData.user.hash_rate / 100);
                 string hashRate = numRate.ToString() + " KH/s";
                 return hashRate;
             }
             if (selectedHashingScale == "MH")
             {
-                int numRate = Convert.ToInt32(data.user.hash_rate / 1000);
+                int numRate = Convert.ToInt32(apiData.user.hash_rate / 1000);
                 string hashRate = numRate.ToString() + " MH/s";
                 return hashRate;
             }
             if (selectedHashingScale == "GH")
             {
-                int numRate = Convert.ToInt32(data.user.hash_rate / 10000);
+                int numRate = Convert.ToInt32(apiData.user.hash_rate / 10000);
                 string hashRate = numRate.ToString() + " GH/s";
                 return hashRate;
             }
             if (selectedHashingScale == "TH")
             {
-                int numRate = Convert.ToInt32(data.user.hash_rate / 100000);
+                int numRate = Convert.ToInt32(apiData.user.hash_rate / 100000);
                 string hashRate = numRate.ToString() + " TH/s";
                 return hashRate;
             }
@@ -173,28 +174,28 @@ namespace LTCPool_UTSharp
         {
             if (currency == "€")
             {
-                float total = data.user.expected_24h_rewards * data.market.ltc_eur;
+                var total = apiData.user.expected_24h_rewards * apiData.market.ltc_eur;
                 return $"{total:n2}€";
             }
             else if (currency == "$")
             {
-                float total = data.user.expected_24h_rewards * data.market.ltc_usd;
+                var total = apiData.user.expected_24h_rewards * apiData.market.ltc_usd;
                 return $"{total:n2}$";
             }
             else if (currency == "£")
             {
-                float total = data.user.expected_24h_rewards * data.market.ltc_gbp;
+                var total = apiData.user.expected_24h_rewards * apiData.market.ltc_gbp;
                 return $"{total:n2}£";
             }
             else if (currency == "Ł")
             {
-                float total = data.user.expected_24h_rewards;
+                var total = apiData.user.expected_24h_rewards;
                 return $"{total:n2}Ł";
 
             }
             return null;
         }
 
-        public string getTotWork() { return Convert.ToUInt64(data.user.total_work / 1_000_000_000_000).ToString() + " TH"; }
+        public string getTotWork() { return Convert.ToUInt64(apiData.user.total_work / 1_000_000_000_000).ToString() + " TH"; }
     }
 }
