@@ -1,0 +1,3 @@
+apikey:730fb25e65c7fd96daf369c32d6dc7c5
+currency:$
+hash_scale:mh

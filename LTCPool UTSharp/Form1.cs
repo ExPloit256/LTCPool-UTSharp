@@ -16,10 +16,15 @@ using System.Text.RegularExpressions;
 
 namespace LTCPool_UTSharp
 {
+
     public partial class MainWindow : Form
     {
+
         //instance of our class where the functions are stored to
         Functions Functions = new Functions();
+
+        // Local Variables
+        public string configFilePath;
 
         public MainWindow()
         {
@@ -33,16 +38,16 @@ namespace LTCPool_UTSharp
 
         private void settingsFDialog_FileOk(object sender, CancelEventArgs e)
         {
-            string settFName = settingsFDialog.FileName;
-
-            string apiKey = Functions.parseConfigFile(settFName)[0].ToString();
-            string currencyType = Functions.parseConfigFile(settFName)[1].ToString();
-            string hashingScale = Functions.parseConfigFile(settFName)[2].ToString();
-
-            globalUpdater.Start();
+            configFilePath = settingsFDialog.FileName;
         }
 
         private void globalUpdater_Tick(object sender, EventArgs e)
+        {
+            
+            totWorkLbl.Text = Functions.getTotWork();
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
         {
 
         }
@@ -53,67 +58,93 @@ namespace LTCPool_UTSharp
         // Global Declarations
         const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
         dynamic data;
-        // Global Declarations
 
-
-        public string[] parseConfigFile(string path) 
+        public static string[] parseConfigFile(string path)
         {
+            if (!File.Exists("settings.txt"))
+            {
+                File.Create("settings.txt").Close();
+                File.WriteAllText("settings.txt",
+                    "apikey:\n" +
+                    "currency:$\n" +
+                    "hash_scale:mh\n");
+            }
             string settFConetent = File.ReadAllText(path);
+            string[] settingsFileParams = { };
 
-            string rawApiString = Regex.Match(settFConetent, "apikey:\\w+\\d+").ToString();
-            string rawCurrencyString = Regex.Match(settFConetent, "currency:[^;]").ToString();
-            string rawScaleString = Regex.Match(settFConetent, "hash_scale:\\w+").ToString();
+            if (Regex.IsMatch(settFConetent, "apikey:\\w+\\d+"))
+            {
+                string rawApiString = Regex.Match(settFConetent, "apikey:\\w+\\d+").ToString();
+                string apiKey = Regex.Replace(rawApiString, "apikey:", "").Trim();
+                settingsFileParams.Append(apiKey);
+            }
+            else MessageBox.Show("Bad API key formatting!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-            string apiKey = Regex.Replace(rawApiString, "apikey:", "").Trim();
-            string currencyType = Regex.Replace(rawCurrencyString, "currency:", "").Trim();
-            string hashingScale = Regex.Replace(rawScaleString, "hash_scale:", "").Trim();
+            if (Regex.IsMatch(settFConetent, "currency:[^;]"))
+            {
+                string rawCurrencyString = Regex.Match(settFConetent, "currency:[^;]").ToString();
+                string currencyType = Regex.Replace(rawCurrencyString, "currency:", "").Trim();
+                settingsFileParams.Append(currencyType);
+            }
+            else MessageBox.Show("Bad Currency type formatting!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-            string[] settingsFileParams = { apiKey, currencyType, hashingScale };
-
+            if (Regex.IsMatch(settFConetent, "currency:[^;]"))
+            {
+                string rawScaleString = Regex.Match(settFConetent, "hash_scale:\\w+").ToString();
+                string hashingScale = Regex.Replace(rawScaleString, "hash_scale:", "").Trim();
+                settingsFileParams.Append(hashingScale);
+            }
+            else MessageBox.Show("Bad Currency type formatting!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return settingsFileParams;
         }
-        public bool fetchApiData()
+        public bool fetchApiData(string apiKey)
         {
-            if (!string.IsNullOrWhiteSpace(""))//settingsPage.apikeyTextbox.Text))
+            if ((!string.IsNullOrWhiteSpace(apiKey)) && apiKey.Length == 32)
             {
                 WebClient client = new WebClient();
                 var apiDataChunk = client.DownloadString(baseUrl);//+ settingsPage.apikeyTextbox.Text);
                 data = JsonConvert.DeserializeObject(apiDataChunk);
                 return true;
             }
-            else
+            else if (!string.IsNullOrWhiteSpace(apiKey))
             {
                 MessageBox.Show("You must insert an API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
+            else if (apiKey.Length == 32)
+            {
+                MessageBox.Show("You must insert a valid API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            return false;
         }
 
         public string getTotRevenue(string currency)
         {
-            if (fetchApiData())
+            if (currency == "€")
             {
-                if (currency == "€")
-                {
-                    float total = data.user.total_rewards * data.market.ltc_eur;
-                    return $"{total:n2}€";
-                }
-                else if (currency == "$")
-                {
-                    float total = data.user.total_rewards * data.market.ltc_usd;
-                    return $"{total:n2}$";
-                }
-                else if (currency == "£")
-                {
-                    float total = data.user.total_rewards * data.market.ltc_gbp;
-                    return $"{total:n2}£";
-                }
-                else if (currency == "Ł")
-                {
-                    float total = data.user.total_rewards;
-                    return $"{total:n2}Ł";
-
-                }
-
+                float total = data.user.total_rewards * data.market.ltc_eur;
+                return $"{total:n2}€";
+            }
+            else if (currency == "$")
+            {
+                float total = data.user.total_rewards * data.market.ltc_usd;
+                return $"{total:n2}$";
+            }
+            else if (currency == "£")
+            {
+                float total = data.user.total_rewards * data.market.ltc_gbp;
+                return $"{total:n2}£";
+            }
+            else if (currency == "Ł")
+            {
+                float total = data.user.total_rewards;
+                return $"{total:n2}Ł";
+            }
+            else if (currency == "₿")
+            {
+                float total = data.user.total_rewards;
+                return $"{total:n2}₿";
             }
             return null;
         }
@@ -152,33 +183,29 @@ namespace LTCPool_UTSharp
         }
         public string getExpRev24(string currency)
         {
-            if (fetchApiData())
+            if (currency == "€")
             {
-                if (currency == "€")
-                {
-                    float total = data.user.expected_24h_rewards * data.market.ltc_eur;
-                    return $"{total:n2}€";
-                }
-                else if (currency == "$")
-                {
-                    float total = data.user.expected_24h_rewards * data.market.ltc_usd;
-                    return $"{total:n2}$";
-                }
-                else if (currency == "£")
-                {
-                    float total = data.user.expected_24h_rewards * data.market.ltc_gbp;
-                    return $"{total:n2}£";
-                }
-                else if (currency == "Ł")
-                {
-                    float total = data.user.expected_24h_rewards;
-                    return $"{total:n2}Ł";
-
-                }
+                float total = data.user.expected_24h_rewards * data.market.ltc_eur;
+                return $"{total:n2}€";
+            }
+            else if (currency == "$")
+            {
+                float total = data.user.expected_24h_rewards * data.market.ltc_usd;
+                return $"{total:n2}$";
+            }
+            else if (currency == "£")
+            {
+                float total = data.user.expected_24h_rewards * data.market.ltc_gbp;
+                return $"{total:n2}£";
+            }
+            else if (currency == "Ł")
+            {
+                float total = data.user.expected_24h_rewards;
+                return $"{total:n2}Ł";
 
             }
             return null;
-
         }
+        public string getTotWork() { return Convert.ToInt32(data.user.total_work / 100000).ToString() + " TH/s"; }
     }
 }

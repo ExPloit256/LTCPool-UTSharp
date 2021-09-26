@@ -48,6 +48,8 @@ namespace LTCPool_UTSharp
             this.TotEarnLbl = new System.Windows.Forms.Label();
             this.globalUpdater = new System.Windows.Forms.Timer(this.components);
             this.settingsFDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label10 = new System.Windows.Forms.Label();
+            this.totWorkLbl = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,7 +79,7 @@ namespace LTCPool_UTSharp
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label3.Location = new System.Drawing.Point(33, 128);
+            this.label3.Location = new System.Drawing.Point(33, 214);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(257, 25);
             this.label3.TabIndex = 1;
@@ -165,7 +167,7 @@ namespace LTCPool_UTSharp
             // importSettingsToolStripMenuItem
             // 
             this.importSettingsToolStripMenuItem.Name = "importSettingsToolStripMenuItem";
-            this.importSettingsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.importSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importSettingsToolStripMenuItem.Text = "Import Settings";
             this.importSettingsToolStripMenuItem.Click += new System.EventHandler(this.importSettingsToolStripMenuItem_Click);
             // 
@@ -173,7 +175,7 @@ namespace LTCPool_UTSharp
             // 
             this.HashSpeedLbl.AutoSize = true;
             this.HashSpeedLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HashSpeedLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.HashSpeedLbl.ForeColor = System.Drawing.Color.Black;
             this.HashSpeedLbl.Location = new System.Drawing.Point(195, 83);
             this.HashSpeedLbl.Name = "HashSpeedLbl";
             this.HashSpeedLbl.Size = new System.Drawing.Size(23, 25);
@@ -184,8 +186,8 @@ namespace LTCPool_UTSharp
             // 
             this.excp24RewardsLbl.AutoSize = true;
             this.excp24RewardsLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.excp24RewardsLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.excp24RewardsLbl.Location = new System.Drawing.Point(296, 128);
+            this.excp24RewardsLbl.ForeColor = System.Drawing.Color.Green;
+            this.excp24RewardsLbl.Location = new System.Drawing.Point(296, 214);
             this.excp24RewardsLbl.Name = "excp24RewardsLbl";
             this.excp24RewardsLbl.Size = new System.Drawing.Size(23, 25);
             this.excp24RewardsLbl.TabIndex = 1;
@@ -195,7 +197,7 @@ namespace LTCPool_UTSharp
             // 
             this.TotEarnLbl.AutoSize = true;
             this.TotEarnLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotEarnLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.TotEarnLbl.ForeColor = System.Drawing.Color.Green;
             this.TotEarnLbl.Location = new System.Drawing.Point(186, 170);
             this.TotEarnLbl.Name = "TotEarnLbl";
             this.TotEarnLbl.Size = new System.Drawing.Size(23, 25);
@@ -213,11 +215,34 @@ namespace LTCPool_UTSharp
             this.settingsFDialog.Title = "Import Settings";
             this.settingsFDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.settingsFDialog_FileOk);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label10.Location = new System.Drawing.Point(33, 128);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(117, 25);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "Total Work:";
+            // 
+            // totWorkLbl
+            // 
+            this.totWorkLbl.AutoSize = true;
+            this.totWorkLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totWorkLbl.ForeColor = System.Drawing.Color.Black;
+            this.totWorkLbl.Location = new System.Drawing.Point(156, 128);
+            this.totWorkLbl.Name = "totWorkLbl";
+            this.totWorkLbl.Size = new System.Drawing.Size(23, 25);
+            this.totWorkLbl.TabIndex = 1;
+            this.totWorkLbl.Text = "0";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(853, 554);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.unpaidRewLbl);
@@ -228,6 +253,7 @@ namespace LTCPool_UTSharp
             this.Controls.Add(this.label3);
             this.Controls.Add(this.TotEarnLbl);
             this.Controls.Add(this.excp24RewardsLbl);
+            this.Controls.Add(this.totWorkLbl);
             this.Controls.Add(this.HashSpeedLbl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -239,6 +265,7 @@ namespace LTCPool_UTSharp
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Viewport";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -265,6 +292,8 @@ namespace LTCPool_UTSharp
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importSettingsToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog settingsFDialog;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label totWorkLbl;
     }
 }
 
