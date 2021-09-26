@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Net.Http;
 using System.IO;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
+using System.Numerics;
 
 namespace LTCPool_UTSharp
 {
@@ -41,7 +43,8 @@ namespace LTCPool_UTSharp
 
         private void globalUpdater_Tick(object sender, EventArgs e)
         {
-            totWorkLbl.Text = getTotWork();
+            UpdateValues();
+            Text = "Updated";
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -49,6 +52,7 @@ namespace LTCPool_UTSharp
             Settings.TryFromFile(defaultConfigPath, out settings);
 
             UpdateValues();
+            globalUpdater.Start();
         }
 
         void UpdateValues()
@@ -59,100 +63,43 @@ namespace LTCPool_UTSharp
             //Update Converter
             LtcConverter.Update(apiData.market);
 
-            totWorkLbl.Text = getTotWork();
+            totWorkLbl.Text = GetTotalWork();
+            TotEarnLbl.Text = GetTotalRevenue();
+            HashSpeedLbl.Text = GetHashRate();
+            excp24RewardsLbl.Text = GetExpected24HRevenue();
         }
 
-        public string getTotRevenue(string currency)
+        public string GetTotalRevenue()
         {
-            if (currency == "€")
-            {
-                var total = apiData.user.total_rewards * apiData.market.ltc_eur;
-                return $"{total:n2}€";
-            }
-            else if (currency == "$")
-            {
-                var total = apiData.user.total_rewards * apiData.market.ltc_usd;
-                return $"{total:n2}$";
-            }
-            else if (currency == "£")
-            {
-                var total = apiData.user.total_rewards * apiData.market.ltc_gbp;
-                return $"{total:n2}£";
-            }
-            else if (currency == "Ł")
-            {
-                var total = apiData.user.total_rewards;
-                return $"{total:n2}Ł";
-            }
-            else if (currency == "₿")
-            {
-                var total = apiData.user.total_rewards;
-                return $"{total:n2}₿";
-            }
-            return null;
+            return LtcConverter.ToString(apiData.user.total_rewards, settings.currency, 2);
         }
 
-        public string getHashrate(string selectedHashingScale)
+        public string GetHashRate()
         {
-            if (selectedHashingScale == "H")
-            {
-                string hashRate = apiData.user.hash_rate + " H/s";
-                return hashRate;
-            }
-            if (selectedHashingScale == "KH")
-            {
-                int numRate = Convert.ToInt32(apiData.user.hash_rate / 100);
-                string hashRate = numRate.ToString() + " KH/s";
-                return hashRate;
-            }
-            if (selectedHashingScale == "MH")
-            {
-                int numRate = Convert.ToInt32(apiData.user.hash_rate / 1000);
-                string hashRate = numRate.ToString() + " MH/s";
-                return hashRate;
-            }
-            if (selectedHashingScale == "GH")
-            {
-                int numRate = Convert.ToInt32(apiData.user.hash_rate / 10000);
-                string hashRate = numRate.ToString() + " GH/s";
-                return hashRate;
-            }
-            if (selectedHashingScale == "TH")
-            {
-                int numRate = Convert.ToInt32(apiData.user.hash_rate / 100000);
-                string hashRate = numRate.ToString() + " TH/s";
-                return hashRate;
-            }
-            return "";
+            return ScaleHash(apiData.user.hash_rate * 1000, settings.hashScale, 2) + "/s";
         }
 
-        public string getExpRev24(string currency)
+        public string GetExpected24HRevenue()
         {
-            if (currency == "€")
-            {
-                var total = apiData.user.expected_24h_rewards * apiData.market.ltc_eur;
-                return $"{total:n2}€";
-            }
-            else if (currency == "$")
-            {
-                var total = apiData.user.expected_24h_rewards * apiData.market.ltc_usd;
-                return $"{total:n2}$";
-            }
-            else if (currency == "£")
-            {
-                var total = apiData.user.expected_24h_rewards * apiData.market.ltc_gbp;
-                return $"{total:n2}£";
-            }
-            else if (currency == "Ł")
-            {
-                var total = apiData.user.expected_24h_rewards;
-                return $"{total:n2}Ł";
-
-            }
-            return null;
+            return LtcConverter.ToString(apiData.user.expected_24h_rewards, settings.currency, 2);
         }
 
-        public string getTotWork() { return Convert.ToUInt64(apiData.user.total_work / 1_000_000_000_000).ToString() + " TH"; }
+        public string GetTotalWork()
+        {
+            return ScaleHash(apiData.user.total_work, HashScales.TH);
+        }
+
+        private string ScaleHash(double hash, HashScales scale, int decimalDigits = 2)
+        {
+            hash /= (double)scale;
+            return $"{hash.ToString("N" + decimalDigits)} {scale}";
+        }
+
+        private string ScaleHash(BigInteger hash, HashScales scale)
+        {
+            hash /= (ulong)scale;
+            return $"{hash} {scale}";
+        }
 
     }
 }
