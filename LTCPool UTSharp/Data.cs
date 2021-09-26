@@ -22,7 +22,7 @@ namespace LTCPool_UTSharp
             [JsonProperty] public readonly double paid_rewards;
             [JsonProperty] public readonly double unpaid_rewards;
             [JsonProperty] public readonly double past_24h_rewards;
-            [JsonProperty] public readonly ulong total_work;
+            [JsonProperty] public readonly BigInteger total_work;
             [JsonProperty] public readonly ulong blocks_found;
         }
 
