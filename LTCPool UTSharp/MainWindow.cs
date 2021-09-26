@@ -21,7 +21,7 @@ namespace LTCPool_UTSharp
         private const string defaultConfigPath = "settings.txt";
 
         //instance of our class where the functions are stored to
-        Functions Functions = new Functions();
+        Api Functions = new Api();
 
         Settings settings;
 
@@ -57,7 +57,7 @@ namespace LTCPool_UTSharp
         }
     }
 
-    public class Functions
+    public class Api
     {
         // Global Declarations
         const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
