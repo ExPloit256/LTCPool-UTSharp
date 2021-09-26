@@ -8,8 +8,8 @@ namespace LTCPool_UTSharp
     public class Settings
     {
         [JsonProperty] public readonly string apiKey;
-        [JsonProperty] public readonly string currency;
-        [JsonProperty] public readonly string hashScale;
+        [JsonProperty] public readonly Currencies currency;
+        [JsonProperty] public readonly HashScales hashScale;
 
         private Settings() { }
 
