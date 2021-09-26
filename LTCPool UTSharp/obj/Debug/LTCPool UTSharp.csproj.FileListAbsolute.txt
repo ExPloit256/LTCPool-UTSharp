@@ -1,13 +1,12 @@
-C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\bin\Debug\LTCPool UTSharp.exe.config
-C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\bin\Debug\LTCPool UTSharp.exe
-C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\bin\Debug\LTCPool UTSharp.pdb
 C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool UTSharp.csproj.AssemblyReference.cache
 C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool_UTSharp.MainWindow.resources
 C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool_UTSharp.Properties.Resources.resources
 C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool UTSharp.csproj.GenerateResource.cache
 C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool UTSharp.csproj.CoreCompileInputs.cache
-C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool UTSharp.exe
-C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool UTSharp.pdb
+C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\bin\Debug\LTCPool UTSharp.exe.config
+C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\bin\Debug\LTCPool UTSharp.exe
+C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\bin\Debug\LTCPool UTSharp.pdb
 C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool_UTSharp.Form2.resources
+C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool UTSharp.exe
+C:\Users\Francesco\source\repos\LTCPool UTSharp\LTCPool UTSharp\obj\Debug\LTCPool UTSharp.pdb

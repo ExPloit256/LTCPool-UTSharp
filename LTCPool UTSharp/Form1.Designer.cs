@@ -29,6 +29,7 @@ namespace LTCPool_UTSharp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,12 +40,14 @@ namespace LTCPool_UTSharp
             this.label7 = new System.Windows.Forms.Label();
             this.unpaidRewLbl = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.statusBox = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HashSpeedLbl = new System.Windows.Forms.Label();
             this.excp24RewardsLbl = new System.Windows.Forms.Label();
             this.TotEarnLbl = new System.Windows.Forms.Label();
+            this.globalUpdater = new System.Windows.Forms.Timer(this.components);
+            this.settingsFDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,38 +97,42 @@ namespace LTCPool_UTSharp
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(652, 26);
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(605, 37);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 16);
+            this.label4.Size = new System.Drawing.Size(93, 19);
             this.label4.TabIndex = 2;
             this.label4.Text = "Paid Rewards:";
             // 
             // paidRewLbl
             // 
             this.paidRewLbl.AutoSize = true;
-            this.paidRewLbl.Location = new System.Drawing.Point(735, 26);
+            this.paidRewLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.paidRewLbl.Location = new System.Drawing.Point(701, 37);
             this.paidRewLbl.Name = "paidRewLbl";
-            this.paidRewLbl.Size = new System.Drawing.Size(106, 16);
+            this.paidRewLbl.Size = new System.Drawing.Size(140, 19);
             this.paidRewLbl.TabIndex = 3;
-            this.paidRewLbl.Text = "0.060758855650509";
+            this.paidRewLbl.Text = "0.000000000000000";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(637, 46);
+            this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(587, 57);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(95, 16);
+            this.label7.Size = new System.Drawing.Size(111, 19);
             this.label7.TabIndex = 2;
             this.label7.Text = "Unpaid Rewards:";
             // 
             // unpaidRewLbl
             // 
             this.unpaidRewLbl.AutoSize = true;
-            this.unpaidRewLbl.Location = new System.Drawing.Point(735, 46);
+            this.unpaidRewLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unpaidRewLbl.Location = new System.Drawing.Point(701, 57);
             this.unpaidRewLbl.Name = "unpaidRewLbl";
-            this.unpaidRewLbl.Size = new System.Drawing.Size(106, 16);
+            this.unpaidRewLbl.Size = new System.Drawing.Size(140, 19);
             this.unpaidRewLbl.TabIndex = 3;
-            this.unpaidRewLbl.Text = "0.060758855650509";
+            this.unpaidRewLbl.Text = "0.000000000000000";
             // 
             // label9
             // 
@@ -136,34 +143,31 @@ namespace LTCPool_UTSharp
             this.label9.TabIndex = 4;
             this.label9.Text = "Status:";
             // 
-            // statusBox
-            // 
-            this.statusBox.AutoSize = true;
-            this.statusBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.statusBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusBox.Location = new System.Drawing.Point(830, 532);
-            this.statusBox.Name = "statusBox";
-            this.statusBox.Size = new System.Drawing.Size(11, 11);
-            this.statusBox.TabIndex = 4;
-            this.statusBox.Text = "   ";
-            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(853, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // settingsToolStripMenuItem
+            // fileToolStripMenuItem
             // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click_1);
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importSettingsToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // importSettingsToolStripMenuItem
+            // 
+            this.importSettingsToolStripMenuItem.Name = "importSettingsToolStripMenuItem";
+            this.importSettingsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.importSettingsToolStripMenuItem.Text = "Import Settings";
+            this.importSettingsToolStripMenuItem.Click += new System.EventHandler(this.importSettingsToolStripMenuItem_Click);
             // 
             // HashSpeedLbl
             // 
@@ -198,13 +202,23 @@ namespace LTCPool_UTSharp
             this.TotEarnLbl.TabIndex = 1;
             this.TotEarnLbl.Text = "0";
             // 
+            // globalUpdater
+            // 
+            this.globalUpdater.Interval = 5000;
+            this.globalUpdater.Tick += new System.EventHandler(this.globalUpdater_Tick);
+            // 
+            // settingsFDialog
+            // 
+            this.settingsFDialog.Filter = "Text Files|*.txt";
+            this.settingsFDialog.Title = "Import Settings";
+            this.settingsFDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.settingsFDialog_FileOk);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(853, 554);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.statusBox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.unpaidRewLbl);
             this.Controls.Add(this.paidRewLbl);
@@ -225,7 +239,6 @@ namespace LTCPool_UTSharp
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Viewport";
-            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -244,12 +257,14 @@ namespace LTCPool_UTSharp
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label unpaidRewLbl;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label statusBox;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.Label HashSpeedLbl;
         private System.Windows.Forms.Label excp24RewardsLbl;
         private System.Windows.Forms.Label TotEarnLbl;
+        public System.Windows.Forms.Timer globalUpdater;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importSettingsToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog settingsFDialog;
     }
 }
 
