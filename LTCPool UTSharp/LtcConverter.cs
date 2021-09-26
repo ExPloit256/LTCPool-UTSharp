@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,40 +9,60 @@ namespace LTCPool_UTSharp
 {
     public static class LtcConverter
     {
-        public static Dictionary<Currencies, double> rates;
+        private static Dictionary<Currencies, CurrencyData> rates;
 
         static LtcConverter()
         {
-            rates = new Dictionary<Currencies, double>()
+            rates = new Dictionary<Currencies, CurrencyData>()
             {
-                { Currencies.Btc, 0 },
-                { Currencies.Usd, 0 },
-                { Currencies.Cad, 0 },
-                { Currencies.Eur, 0 },
-                { Currencies.Gbp, 0 },
-                { Currencies.Rub, 0 },
-                { Currencies.Cny, 0 },
-                { Currencies.Aud, 0 },
-                { Currencies.Zar, 0 },
+                { Currencies.Ltc, new CurrencyData(0, "Ł") },
+                { Currencies.Btc, new CurrencyData(0, "₿") },
+                { Currencies.Usd, new CurrencyData(0, "$") },
+                { Currencies.Cad, new CurrencyData(0, "CAD$") },
+                { Currencies.Eur, new CurrencyData(0, "€") },
+                { Currencies.Gbp, new CurrencyData(0, "£") },
+                { Currencies.Rub, new CurrencyData(0, "₽") },
+                { Currencies.Cny, new CurrencyData(0, "¥") },
+                { Currencies.Aud, new CurrencyData(0, "AUD$") },
+                { Currencies.Zar, new CurrencyData(0, "R") },
             };
         }
 
         public static void Update(in Data.Market market)
         {
-            rates[Currencies.Btc] = market.ltc_btc;
-            rates[Currencies.Usd] = market.ltc_usd;
-            rates[Currencies.Cad] = market.ltc_cad;
-            rates[Currencies.Eur] = market.ltc_eur;
-            rates[Currencies.Gbp] = market.ltc_gbp;
-            rates[Currencies.Rub] = market.ltc_rub;
-            rates[Currencies.Cny] = market.ltc_cny;
-            rates[Currencies.Aud] = market.ltc_aud;
-            rates[Currencies.Zar] = market.ltc_zar;
+            rates[Currencies.Btc].ltcExchange = market.ltc_btc;
+            rates[Currencies.Usd].ltcExchange = market.ltc_usd;
+            rates[Currencies.Cad].ltcExchange = market.ltc_cad;
+            rates[Currencies.Eur].ltcExchange = market.ltc_eur;
+            rates[Currencies.Gbp].ltcExchange = market.ltc_gbp;
+            rates[Currencies.Rub].ltcExchange = market.ltc_rub;
+            rates[Currencies.Cny].ltcExchange = market.ltc_cny;
+            rates[Currencies.Aud].ltcExchange = market.ltc_aud;
+            rates[Currencies.Zar].ltcExchange = market.ltc_zar;
         }
 
         public static double ConvertTo(double ltc, Currencies currency)
         {
-            return ltc * rates[currency];
+            return ltc * rates[currency].ltcExchange;
+        }
+
+        public static string ToString(double ltc, Currencies currency, int decimalDigits = 2)
+        {
+            var data = rates[currency];
+            var value = ltc * data.ltcExchange;
+            return value.ToString("N" + decimalDigits) + data.symbol;
+        }
+
+        private class CurrencyData
+        {
+            public double ltcExchange;
+            public string symbol;
+
+            public CurrencyData(double ltcExchange, string symbol)
+            {
+                this.ltcExchange = ltcExchange;
+                this.symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            }
         }
     }
 }
