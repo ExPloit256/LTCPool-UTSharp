@@ -8,10 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Http;
-using System.Net;
 using System.IO;
-
-using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
 namespace LTCPool_UTSharp
@@ -147,37 +144,5 @@ namespace LTCPool_UTSharp
 
         public string getTotWork() { return Convert.ToUInt64(apiData.user.total_work / 1_000_000_000_000).ToString() + " TH"; }
 
-    }
-
-    public static class Api
-    {
-        // Global Declarations
-        const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
-        
-        public static bool TryFetchApiData(string apiKey, out Data apiData)
-        {
-            if(!string.IsNullOrWhiteSpace(apiKey))
-            {
-                if(apiKey.Length == 32)
-                {
-                    WebClient client = new WebClient();
-                    var apiDataChunk = client.DownloadString(baseUrl + apiKey);
-                    apiData = JsonConvert.DeserializeObject<Data>(apiDataChunk);
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("You must insert a valid API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    apiData = null;
-                    return false;
-                }
-            }
-            else
-            {
-                MessageBox.Show("You must insert an API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                apiData = null;
-                return false;
-            }
-        }
     }
 }

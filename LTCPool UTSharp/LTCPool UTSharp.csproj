@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
