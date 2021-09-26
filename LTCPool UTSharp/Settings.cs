@@ -12,6 +12,8 @@ namespace LTCPool_UTSharp
         [JsonProperty] public readonly string apiKey;
         [JsonProperty] public readonly Currencies currency;
         [JsonProperty] public readonly HashScales hashScale;
+        [JsonProperty] public readonly int hashDecimals;
+        [JsonProperty] public readonly int currencyDecimals;
 
         //Disallow instance creation
         private Settings() { }

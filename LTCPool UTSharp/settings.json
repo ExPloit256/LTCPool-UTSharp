@@ -1,5 +1,7 @@
 ﻿{
-   "apiKey": "YOUR API KEY HERE",
-   "currency": "EUR",
-   "hashScale": "MH"
+  "apiKey": "YOUR API KEY HERE",
+  "currency": "LTC",
+  "hashScale": "KH",
+  "hashDecimals": 0, 
+  "currencyDecimals": 12
 }

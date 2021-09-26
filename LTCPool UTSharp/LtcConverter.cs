@@ -11,7 +11,7 @@ namespace LTCPool_UTSharp
         {
             rates = new Dictionary<Currencies, CurrencyData>()
             {
-                { Currencies.Ltc, new CurrencyData(0, "Ł") },
+                { Currencies.Ltc, new CurrencyData(1, "Ł") },
                 { Currencies.Btc, new CurrencyData(0, "₿") },
                 { Currencies.Usd, new CurrencyData(0, "$") },
                 { Currencies.Cad, new CurrencyData(0, "CAD$") },
@@ -42,7 +42,7 @@ namespace LTCPool_UTSharp
             return ltc * rates[currency].ltcExchange;
         }
 
-        public static string ToString(double ltc, Currencies currency, int decimalDigits = 2)
+        public static string ToString(double ltc, Currencies currency, int decimalDigits)
         {
             var data = rates[currency];
             var value = ltc * data.ltcExchange;

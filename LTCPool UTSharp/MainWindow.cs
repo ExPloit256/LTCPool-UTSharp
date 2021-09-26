@@ -121,7 +121,7 @@ namespace LTCPool_UTSharp
         /// </summary>
         private string GetTotalRevenue()
         {
-            return LtcConverter.ToString(apiData.user.total_rewards, settings.currency, 2);
+            return LtcConverter.ToString(apiData.user.total_rewards, settings.currency, settings.currencyDecimals);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace LTCPool_UTSharp
         {
             //hash_rate is in kilo hashes!
             //We need to scale it back to hashes to scale it
-            return ScaleHash(apiData.user.hash_rate * 1000, settings.hashScale, 2) + "/s";
+            return ScaleHash(apiData.user.hash_rate * 1000, settings.hashScale, settings.hashDecimals) + "/s";
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace LTCPool_UTSharp
         /// </summary>
         private string GetExpected24HRevenue()
         {
-            return LtcConverter.ToString(apiData.user.expected_24h_rewards, settings.currency, 2);
+            return LtcConverter.ToString(apiData.user.expected_24h_rewards, settings.currency, settings.currencyDecimals);
         }
 
         /// <summary>
@@ -155,8 +155,8 @@ namespace LTCPool_UTSharp
         /// </summary>
         /// <param name="hash">Hash count</param>
         /// <param name="scale">Scale</param>
-        /// <param name="decimalDigits">Decimal places to show. Default is 2</param>
-        private string ScaleHash(double hash, HashScales scale, int decimalDigits = 2)
+        /// <param name="decimalDigits">Decimal places to show</param>
+        private string ScaleHash(double hash, HashScales scale, int decimalDigits)
         {
             //Read documentation in HashScales.cs to understand why this division works
             hash /= (double)scale;
