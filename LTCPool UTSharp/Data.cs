@@ -1,14 +1,22 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using System.Numerics;
 
 namespace LTCPool_UTSharp
 {
+    //NOTES: Using readonly without [JsonProperty] attribute doesn't let JsonConvert deserialize data
+
+    /// <summary>
+    /// C# representation of the litecoinpool.org data
+    /// </summary>
     public class Data
     {
         [JsonProperty] public readonly User user;
-        [JsonProperty] public readonly JObject workers;
+        //This should be an array of objects, but it's an object that contains a field for each worker
+        //So we can't parse this to a different structure
+        [JsonProperty] public readonly JObject workers; 
+        //We don't know the schema for the payouts yet
         [JsonProperty] public readonly JObject[] recent_payouts;
         [JsonProperty] public readonly Pool pool;
         [JsonProperty] public readonly Network network;

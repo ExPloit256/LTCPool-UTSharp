@@ -7,33 +7,48 @@ namespace LTCPool_UTSharp
 {
     public static class Api
     {
-        // Global Declarations
-        const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
-        
+        //Base API url
+        private const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
+
+        //WebClient
+        private static readonly WebClient client;
+
+        static Api()
+        {
+            //Webclients are expensive, so we create it once in the static contructor
+            client = new WebClient();
+        }
+
         public static bool TryFetchApiData(string apiKey, out Data apiData)
         {
             if(!string.IsNullOrWhiteSpace(apiKey))
             {
                 if(apiKey.Length == 32)
                 {
-                    WebClient client = new WebClient();
                     var apiDataChunk = client.DownloadString(baseUrl + apiKey);
                     apiData = JsonConvert.DeserializeObject<Data>(apiDataChunk);
                     return true;
                 }
                 else
                 {
-                    MessageBox.Show("You must insert a valid API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Error("You must insert a valid API key!");
                     apiData = null;
                     return false;
                 }
             }
             else
             {
-                MessageBox.Show("You must insert an API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Error("You must insert an API key!");
                 apiData = null;
                 return false;
             }
+        }
+
+        //Copied from MainWindow
+        //Should we make an "error api"?
+        private static void Error(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
