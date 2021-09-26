@@ -68,8 +68,9 @@ namespace LTCPool_UTSharp
             if (settings == null)
                 return;
 
-            //Fetch new API data
-            Api.TryFetchApiData(settings.apiKey, out apiData);
+            //If data isn't fetched correctly, don't update
+            if (!Api.TryFetchApiData(settings.apiKey, out apiData))
+                return;
 
             //Update Converter
             LtcConverter.Update(apiData.market);
