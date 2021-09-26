@@ -71,6 +71,7 @@
     <Compile Include="Currencies.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="HashRates.cs" />
+    <Compile Include="LtcConverter.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
