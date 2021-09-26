@@ -8,7 +8,7 @@ namespace LTCPool_UTSharp
     public partial class MainWindow : Form
     {
         //The default path of the config file
-        private const string defaultConfigPath = "settings.txt";
+        private const string defaultConfigPath = "settings.json";
 
         //The C# representation of data received from the litecoinpool.org API
         private Data apiData;
