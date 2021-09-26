@@ -20,8 +20,7 @@ namespace LTCPool_UTSharp
     {
         private const string defaultConfigPath = "settings.txt";
 
-        //instance of our class where the functions are stored to
-        Api Functions = new Api();
+        private Data apiData;
 
         Settings settings;
 
@@ -45,47 +44,15 @@ namespace LTCPool_UTSharp
 
         private void globalUpdater_Tick(object sender, EventArgs e)
         {
-            totWorkLbl.Text = Functions.getTotWork();
+            totWorkLbl.Text = getTotWork();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
             Settings.TryFromFile(defaultConfigPath, out settings);
 
-            Functions.fetchApiData(settings.apiKey);
-            totWorkLbl.Text = Functions.getTotWork();
-        }
-    }
-
-    public class Api
-    {
-        // Global Declarations
-        const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
-        
-        public Data apiData;
-
-        public bool fetchApiData(string apiKey)
-        {
-            if(!string.IsNullOrWhiteSpace(apiKey))
-            {
-                if(apiKey.Length == 32)
-                {
-                    WebClient client = new WebClient();
-                    var apiDataChunk = client.DownloadString(baseUrl + apiKey);
-                    apiData = JsonConvert.DeserializeObject<Data>(apiDataChunk);
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("You must insert a valid API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-            }
-            else
-            {
-                MessageBox.Show("You must insert an API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
+            Api.TryFetchApiData(settings.apiKey, out apiData);
+            totWorkLbl.Text = getTotWork();
         }
 
         public string getTotRevenue(string currency)
@@ -179,5 +146,38 @@ namespace LTCPool_UTSharp
         }
 
         public string getTotWork() { return Convert.ToUInt64(apiData.user.total_work / 1_000_000_000_000).ToString() + " TH"; }
+
+    }
+
+    public static class Api
+    {
+        // Global Declarations
+        const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
+        
+        public static bool TryFetchApiData(string apiKey, out Data apiData)
+        {
+            if(!string.IsNullOrWhiteSpace(apiKey))
+            {
+                if(apiKey.Length == 32)
+                {
+                    WebClient client = new WebClient();
+                    var apiDataChunk = client.DownloadString(baseUrl + apiKey);
+                    apiData = JsonConvert.DeserializeObject<Data>(apiDataChunk);
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("You must insert a valid API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    apiData = null;
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("You must insert an API key!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                apiData = null;
+                return false;
+            }
+        }
     }
 }
