@@ -16,12 +16,14 @@ using System.Text.RegularExpressions;
 
 namespace LTCPool_UTSharp
 {
-
     public partial class MainWindow : Form
     {
+        private const string defaultConfigPath = "settings.txt";
 
         //instance of our class where the functions are stored to
         Functions Functions = new Functions();
+
+        Settings settings;
 
         // Local Variables
         public string configFilePath;
@@ -43,14 +45,22 @@ namespace LTCPool_UTSharp
 
         private void globalUpdater_Tick(object sender, EventArgs e)
         {
-            
             totWorkLbl.Text = Functions.getTotWork();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-
+            settings = Functions.parseConfigFile(defaultConfigPath);
+            Functions.fetchApiData(settings.apiKey);
+            totWorkLbl.Text = Functions.getTotWork();
         }
+    }
+
+    public class Settings
+    {
+        public string apiKey;
+        public string currency;
+        public string hashScale;
     }
 
     public class Functions
@@ -59,50 +69,26 @@ namespace LTCPool_UTSharp
         const string baseUrl = "https://www.litecoinpool.org/api?api_key=";
         dynamic data;
 
-        public static string[] parseConfigFile(string path)
+        public static Settings parseConfigFile(string path)
         {
-            if (!File.Exists("settings.txt"))
+            if(File.Exists(path))
             {
-                File.Create("settings.txt").Close();
-                File.WriteAllText("settings.txt",
-                    "apikey:\n" +
-                    "currency:$\n" +
-                    "hash_scale:mh\n");
+                var fileData = File.ReadAllText(path);
+                var settings = JsonConvert.DeserializeObject<Settings>(fileData);
+                return settings;
             }
-            string settFConetent = File.ReadAllText(path);
-            string[] settingsFileParams = { };
-
-            if (Regex.IsMatch(settFConetent, "apikey:\\w+\\d+"))
+            else
             {
-                string rawApiString = Regex.Match(settFConetent, "apikey:\\w+\\d+").ToString();
-                string apiKey = Regex.Replace(rawApiString, "apikey:", "").Trim();
-                settingsFileParams.Append(apiKey);
+                return null;
             }
-            else MessageBox.Show("Bad API key formatting!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-            if (Regex.IsMatch(settFConetent, "currency:[^;]"))
-            {
-                string rawCurrencyString = Regex.Match(settFConetent, "currency:[^;]").ToString();
-                string currencyType = Regex.Replace(rawCurrencyString, "currency:", "").Trim();
-                settingsFileParams.Append(currencyType);
-            }
-            else MessageBox.Show("Bad Currency type formatting!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-            if (Regex.IsMatch(settFConetent, "currency:[^;]"))
-            {
-                string rawScaleString = Regex.Match(settFConetent, "hash_scale:\\w+").ToString();
-                string hashingScale = Regex.Replace(rawScaleString, "hash_scale:", "").Trim();
-                settingsFileParams.Append(hashingScale);
-            }
-            else MessageBox.Show("Bad Currency type formatting!", "LTCPool UTSharp", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            return settingsFileParams;
         }
+
         public bool fetchApiData(string apiKey)
         {
             if ((!string.IsNullOrWhiteSpace(apiKey)) && apiKey.Length == 32)
             {
                 WebClient client = new WebClient();
-                var apiDataChunk = client.DownloadString(baseUrl);//+ settingsPage.apikeyTextbox.Text);
+                var apiDataChunk = client.DownloadString(baseUrl + apiKey);
                 data = JsonConvert.DeserializeObject(apiDataChunk);
                 return true;
             }
@@ -148,6 +134,7 @@ namespace LTCPool_UTSharp
             }
             return null;
         }
+
         public string getHashrate(string selectedHashingScale)
         {
             if (selectedHashingScale == "H")
@@ -181,6 +168,7 @@ namespace LTCPool_UTSharp
             }
             return "";
         }
+
         public string getExpRev24(string currency)
         {
             if (currency == "€")
@@ -206,6 +194,7 @@ namespace LTCPool_UTSharp
             }
             return null;
         }
-        public string getTotWork() { return Convert.ToInt32(data.user.total_work / 100000).ToString() + " TH/s"; }
+
+        public string getTotWork() { return Convert.ToUInt64(data.user.total_work / 1_000_000_000_000).ToString() + " TH"; }
     }
 }
