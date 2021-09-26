@@ -3,6 +3,7 @@
     public enum Currencies
     {
         Unknown,
+        Ltc,
         Btc,
         Usd,
         Cad,
