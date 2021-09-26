@@ -1,16 +1,19 @@
 ﻿using Newtonsoft.Json;
 
 using System.IO;
-using System.Windows.Forms;
 
 namespace LTCPool_UTSharp
 {
+    //NOTES: Using readonly without [JsonProperty] attribute doesn't let JsonConvert deserialize data
+
+    //Our programs settings
     public class Settings
     {
         [JsonProperty] public readonly string apiKey;
         [JsonProperty] public readonly Currencies currency;
         [JsonProperty] public readonly HashScales hashScale;
 
+        //Disallow instance creation
         private Settings() { }
 
         public static bool TryFromFile(string path, out Settings settings)
