@@ -21,27 +21,9 @@ namespace LTCPool_UTSharp
 
         public static bool TryFetchApiData(string apiKey, out Data apiData)
         {
-            if(!string.IsNullOrWhiteSpace(apiKey))
-            {
-                if(apiKey.Length == 32)
-                {
-                    var apiDataChunk = client.DownloadString(baseUrl + apiKey);
-                    apiData = JsonConvert.DeserializeObject<Data>(apiDataChunk);
-                    return true;
-                }
-                else
-                {
-                    Error("You must insert a valid API key!");
-                    apiData = null;
-                    return false;
-                }
-            }
-            else
-            {
-                Error("You must insert an API key!");
-                apiData = null;
-                return false;
-            }
+            var apiDataChunk = client.DownloadString(baseUrl + apiKey);
+            apiData = JsonConvert.DeserializeObject<Data>(apiDataChunk);
+            return true;
         }
 
         //Copied from MainWindow
