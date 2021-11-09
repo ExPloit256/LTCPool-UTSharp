@@ -80,6 +80,8 @@ namespace LTCPool_UTSharp
             TotEarnLbl.Text = GetTotalRevenue();
             HashSpeedLbl.Text = GetHashRate();
             excp24RewardsLbl.Text = GetExpected24HRevenue();
+            unpaidRewLbl.Text = GetUnpaidAmount();
+            paidRewLbl.Text = GetPaidAmount();
         }
 
         /// <summary>
@@ -150,6 +152,23 @@ namespace LTCPool_UTSharp
         {
             return ScaleHash(apiData.user.total_work, HashScales.TH);
         }
+
+        /// <summary>
+        /// Gets the unpaid amount
+        /// </summary>
+        private string GetUnpaidAmount()
+        {
+            return LtcConverter.ToString(apiData.user.unpaid_rewards, settings.currency, settings.currencyDecimals);
+        }
+        
+        /// <summary>
+        /// Gets the unpaid amount
+        /// </summary>
+        private string GetPaidAmount()
+        {
+            return LtcConverter.ToString(apiData.user.paid_rewards, settings.currency, settings.currencyDecimals);
+        }
+
 
         /// <summary>
         /// Scales a floating point hash count

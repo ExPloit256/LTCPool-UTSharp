@@ -110,6 +110,7 @@ namespace LTCPool_UTSharp
             // 
             this.paidRewLbl.AutoSize = true;
             this.paidRewLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.paidRewLbl.ForeColor = System.Drawing.Color.DarkGreen;
             this.paidRewLbl.Location = new System.Drawing.Point(701, 37);
             this.paidRewLbl.Name = "paidRewLbl";
             this.paidRewLbl.Size = new System.Drawing.Size(140, 19);
@@ -130,6 +131,7 @@ namespace LTCPool_UTSharp
             // 
             this.unpaidRewLbl.AutoSize = true;
             this.unpaidRewLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unpaidRewLbl.ForeColor = System.Drawing.Color.Green;
             this.unpaidRewLbl.Location = new System.Drawing.Point(701, 57);
             this.unpaidRewLbl.Name = "unpaidRewLbl";
             this.unpaidRewLbl.Size = new System.Drawing.Size(140, 19);
@@ -175,7 +177,7 @@ namespace LTCPool_UTSharp
             // 
             this.HashSpeedLbl.AutoSize = true;
             this.HashSpeedLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HashSpeedLbl.ForeColor = System.Drawing.Color.Black;
+            this.HashSpeedLbl.ForeColor = System.Drawing.Color.Green;
             this.HashSpeedLbl.Location = new System.Drawing.Point(195, 83);
             this.HashSpeedLbl.Name = "HashSpeedLbl";
             this.HashSpeedLbl.Size = new System.Drawing.Size(23, 25);
@@ -206,7 +208,7 @@ namespace LTCPool_UTSharp
             // 
             // globalUpdater
             // 
-            this.globalUpdater.Interval = 5000;
+            this.globalUpdater.Interval = 10000;
             this.globalUpdater.Tick += new System.EventHandler(this.globalUpdater_Tick);
             // 
             // settingsFDialog
@@ -230,7 +232,7 @@ namespace LTCPool_UTSharp
             // 
             this.totWorkLbl.AutoSize = true;
             this.totWorkLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totWorkLbl.ForeColor = System.Drawing.Color.Black;
+            this.totWorkLbl.ForeColor = System.Drawing.Color.Green;
             this.totWorkLbl.Location = new System.Drawing.Point(156, 128);
             this.totWorkLbl.Name = "totWorkLbl";
             this.totWorkLbl.Size = new System.Drawing.Size(23, 25);
